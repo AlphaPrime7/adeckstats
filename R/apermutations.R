@@ -1,11 +1,13 @@
+## adeckstats - R package for Random Numbers Distribution Simulation
+## Copyright (C) 2024 Tingwei Adeck
+
 #' Basic permutation
-#' @author Tingwei Adeck
+#' @family permutation
 #' @param n an integer
 #' @return a matrix or data frame
 #' @export
-#' @examples
-#' aperm(6)
-aperm <- function(n){
+#' @rdname permutation
+adeck_perm <- function(n){
 
   n <- as.integer(ceiling(n))
 
@@ -17,7 +19,7 @@ aperm <- function(n){
   }
 
   if (n == 1){
-    matrix(1)
+    matrix(n)
   }
   else {
     p <- 1
@@ -39,32 +41,14 @@ aperm <- function(n){
   }
 }
 
-coins_mat_to_list <- function(df, num_coins){
-  init_ls = vector(mode = 'list', length = nrow(df))
-  res_ls = vector(mode = 'list', length = nrow(df))
-
-  for (j in 1:nrow(df)) {
-    for(l in 1: length(res_ls)){
-      segment = df[j,]
-      segment = as.character(segment)
-      init_ls[[l]] = append(init_ls[[l]], segment)
-    }
-  }
-  init_ls = init_ls[[1]]
-
-  val = num_coins
-  sn = c(1:val)
-  for (l in 1:length(res_ls)){
-    segment = init_ls[sn]
-    incby = num_coins
-    sn = sn + val
-    res_ls[[l]] = append(res_ls[[l]], segment)
-  }
-
-  res_ls
-}
-
-acoinperm <- function(number_of_coins, out_format = c('char', 'num', 'list')){
+#' Coin Toss Permutations
+#' @family permutation
+#' @param number_of_coins int
+#' @param out_format format type
+#' @return out_format type
+#' @export
+#' @rdname permutation
+adeck_coinperm <- function(number_of_coins, out_format = c('char', 'num', 'list')){
 
   n <- as.integer(round(number_of_coins))
 
@@ -126,10 +110,10 @@ acoinperm <- function(number_of_coins, out_format = c('char', 'num', 'list')){
     perm_mat = apply(perm_mat, 2, as.numeric)
     perm_mat
   }
-
   else if ('list' %in% out_format){
     pm <- coins_mat_to_list(perm_mat, n)
     pm
   }
 
 }
+
