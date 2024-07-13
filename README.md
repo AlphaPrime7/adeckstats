@@ -62,3 +62,8 @@ Calculating Time complexity involves:
 - combine operations (add for sequential ops and product for nest ops)
 - Use asymptotic notation focusing on the term that grows fastest and n
   increases
+
+Space Complexity:
+
+The binary search algorithms halves the search space and this algorithm
+really sank in when i understood this benefit.
