@@ -36,9 +36,7 @@ adeck_binarysearch <- function(vect,key = NULL, fun=NULL){
       found = TRUE
       return(mid)
     }
-
   }
-
   if(!found){
     print('not found')
     return(NULL)
