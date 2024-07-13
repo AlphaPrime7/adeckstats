@@ -1,12 +1,12 @@
 Package: adeckstats
 Type: Package
-Title: Simulation of Distributions for Randomly Generated Values
+Title: Simulation of Distributions for Randomly Generated Values and Introduction to Algorithms
 Version: 0.1.0.9000
 Authors@R: 
     person("Tingwei", "Adeck", , "awesome.tingwei@outlook.com", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0009-7450-8863"))
 Maintainer: The package maintainer <awesome.tingwei@outlook.com>
-Description: The package will help with proper understanding of statistics from a Theoretical programmer's perspective.
+Description: The package will help with proper understanding of statistics from a Theoretical programmer's perspective. The package also includes algorithms and quick notes on understanding programming algorithms.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
