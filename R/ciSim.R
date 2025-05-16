@@ -1,4 +1,14 @@
-#' testUniCISim(100,200,1,1,1.96)
+## adeckstats - R package for Random Numbers Distribution Simulation
+## Copyright (C) 2024 Tingwei Adeck
+
+#' Basic permutation
+#' @family permutation
+#' @param n an integer
+#' @return a matrix or data frame
+#' @export
+#' @rdname permutation
+#' @examples
+#' \dontrun{testUniCISim(100,200,1,1,1.96)}
 testUniCISim <- function(n, m, mean, sd, z) {
   countV <- c()
   ciV <- c()
