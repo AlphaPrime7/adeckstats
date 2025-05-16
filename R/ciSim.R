@@ -15,6 +15,11 @@
 #' @examples
 #' \dontrun{testUniCISim(100,200,1,1,1.96)
 #' testMvCISim(n=100, m = 200, mean=1,sd=1,z=1.96)}
+NULL
+
+#' @rdname cisimulation
+#' @return count
+#' @export
 testUniCISim <- function(n, m, mean, sd, z) {
   countV <- c()
   ciV <- c()
