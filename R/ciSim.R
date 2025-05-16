@@ -1,14 +1,20 @@
 ## adeckstats - R package for Random Numbers Distribution Simulation
 ## Copyright (C) 2024 Tingwei Adeck
 
-#' Basic permutation
-#' @family permutation
-#' @param n an integer
-#' @return a matrix or data frame
+#' CI Simulations
+#' @family cisimulations
+#' @param n sample size
+#' @param m number of iterations
+#' @param mean mean
+#' @param sd standard deviation
+#' @param z z-value from z distribution
+#' @param beta dependence modifier coefficient
+#' @return count
 #' @export
-#' @rdname permutation
+#' @rdname cisimulation
 #' @examples
-#' \dontrun{testUniCISim(100,200,1,1,1.96)}
+#' \dontrun{testUniCISim(100,200,1,1,1.96)
+#' testMvCISim(n=100, m = 200, mean=1,sd=1,z=1.96)}
 testUniCISim <- function(n, m, mean, sd, z) {
   countV <- c()
   ciV <- c()
@@ -30,6 +36,9 @@ testUniCISim <- function(n, m, mean, sd, z) {
   
 } 
 
+#' @rdname cisimulation
+#' @return count
+#' @export
 testMvCISim <- function(beta = 20, n, m, mean, sd, z) {
   x = 1:n
   countV <- c()
@@ -52,4 +61,3 @@ testMvCISim <- function(beta = 20, n, m, mean, sd, z) {
   
 }
 
-testMvCISim(n=100, m = 200, mean=1,sd=1,z=1.96)
