@@ -19,3 +19,27 @@ testUniCISim <- function(n, m, mean, sd, z) {
   return(length(countV))
   
 } 
+
+testMvCISim <- function(beta = 20, n, m, mean, sd, z) {
+  x = 1:n
+  countV <- c()
+  ciV <- c()
+  sum <- 0
+  for (i in 1:m) {
+    D <- outer(x, x, FUN = "-")
+    S <- sd * exp(-abs(D) / beta)
+    y <- mvrnorm(1, rep(mean,n), Sigma = S)
+    cil <- mean(y) - (z*(sd/sqrt(n)))
+    ciu <- mean(y) + (z*(sd/sqrt(n)))
+    ciV <- c(cil, ciu)
+    if (mean < cil || mean > ciu) {
+      countV <- c(countV, TRUE)
+      sum <- sum + 1
+    }
+  }
+  print(sum)
+  return(length(countV))
+  
+}
+
+testMvCISim(n=100, m = 200, mean=1,sd=1,z=1.96)
