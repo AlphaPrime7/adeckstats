@@ -8,16 +8,16 @@
 #' @export
 #' @rdname permutation
 adeck_perm <- function(n){
-
+  
   n <- as.integer(ceiling(n))
-
+  
   if (!is.integer(n) | n < 0) {
     rlang::warn(
       message = sprintf('%f must be an integer and must be > than 0', n),
       use_cli_format = T
     )
   }
-
+  
   if (n == 1){
     matrix(n)
   }
@@ -29,10 +29,10 @@ adeck_perm <- function(n){
       indx <- c(pseq, pseq[-i])
       nrowx <- nrow(x)
       prows = nrowx * i
-
+      
       p <- matrix(0, nrow = prows, ncol = i)
       p[1:nrowx, ] <- x
-
+      
       for (j in pseq[-i]) {
         p[j * nrowx + 1:nrowx, ] <- x[, indx[1:i + j]]
       }
@@ -48,30 +48,39 @@ adeck_perm <- function(n){
 #' @return out_format type
 #' @export
 #' @rdname permutation
-adeck_coinperm <- function(number_of_coins, out_format = c('char', 'num', 'list')){
-
-  n <- as.integer(round(number_of_coins))
-
+adeck_coinperm <- function(number_of_bin_events, out_format = c('char', 'num', 'list'), sides = NULL){
+  
+  n <- as.integer(round(number_of_bin_events))
+  split_str <- list()
+  
   if (!is.integer(n) | n < 0) {
     rlang::warn(
       message = sprintf('%f must be an integer and must be > than 0', n),
       use_cli_format = T
     )
   }
-
-  sides <- 'HT'
+  
+  if (is.null(sides)) {
+    sides <- 'HT'
+    split_str <- stringr::str_split(sides, "")
+  }
+  else {
+    sides <- sides
+    split_str <- stringr::str_split(sides, "")
+  }
+  
   c <- vector()
-
+  
   for (i in 0:n - 1){
     if (i == 0)
       c <- c(c, NULL)
     else
       c <- c(c,sides)
   }
-
+  
   if (length(c) == 0)
     warning('No coins tossed')
-
+  
   if (length(c) == 1){
     n <- length(c)
     for (i in 1:n){
@@ -80,8 +89,8 @@ adeck_coinperm <- function(number_of_coins, out_format = c('char', 'num', 'list'
         return(x)
       }
       else if ('num' %in% out_format){
-        x[x == 'H'] <- 1
-        x[x == 'T'] <- 0
+        x[x == split_str[[1]][1] || x == 'H'] <- 1
+        x[x == split_str[[1]][2] || x == 'T'] <- 0
         x = apply(x, 2, as.numeric)
         return(x)
       }
@@ -93,20 +102,27 @@ adeck_coinperm <- function(number_of_coins, out_format = c('char', 'num', 'list'
       }
     }
   }
-
+  
   perm_mat <- data.frame()
+  bin_toss_outcomes = c()
   if (length(c) > 1){
     n <- length(c)
-    bin_toss_outcomes = c('H', 'T')
+    
+    if (is.null(sides)) {
+      bin_toss_outcomes = c('H', 'T')
+    }
+    else {
+      bin_toss_outcomes = c(split_str[[1]][1], split_str[[1]][2])
+    }
     perm_mat <- gtools::permutations(length(bin_toss_outcomes), n, bin_toss_outcomes, repeats.allowed = T)
   }
-
+  
   if (is.null(out_format) | 'char' %in% out_format) {
     perm_mat
   }
   else if ('num' %in% out_format){
-    perm_mat[perm_mat == 'H'] <- 1
-    perm_mat[perm_mat == 'T'] <- 0
+    perm_mat[perm_mat == split_str[[1]][1] || perm_mat == 'H'] <- 1
+    perm_mat[perm_mat == split_str[[1]][2] || perm_mat == 'T'] <- 0
     perm_mat = apply(perm_mat, 2, as.numeric)
     perm_mat
   }
@@ -114,6 +130,5 @@ adeck_coinperm <- function(number_of_coins, out_format = c('char', 'num', 'list'
     pm <- coins_mat_to_list(perm_mat, n)
     pm
   }
-
+  
 }
-
