@@ -13,7 +13,7 @@ The goal of adeckstats is to …
 You can install the development version of adeckstats like so:
 
 ``` r
-devtools::install_github('norepoforyousucker')
+devtools::install_github('AlphaPrime7/adeckstats')
 ```
 
 ## Example
